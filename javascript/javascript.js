@@ -16,3 +16,10 @@ console.log(promedio);
 
 alert(`El promedio de ${nombre} es ${promedio}`);
 
+//EJERCICIO CICLO FOR
+let nro = parseInt(prompt("Ingrese un numero"));
+
+for (let i = 0; i <=10; i++){
+    console.log(`${nro} * ${i} = ${nro*i}`);
+}
+
