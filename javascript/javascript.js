@@ -25,7 +25,7 @@ for (let i = 0; i <=10; i++){
 }
 */
 
-//DESAFÍO COMPLEMENTARIO 1
+//DESAFÍO APLICANDO FUNCIONES
 
 let nota1;
 let nota2;
@@ -33,23 +33,46 @@ let nota3;
 let promedio;
 let mejorPromedio = 0;
 let mejorAlumno;
+
 let nombreAlumno = prompt("Ingrese el nombre del alumno o * para salir:");
 
-while(nombreAlumno != "*"){
+function validarNota(nota){
+    if ( (isNaN(nota)) || (nota < 1) || (nota > 10) ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function calcularPromedio(a, b, c){
+    promedio = (a + b + c) / 3;
+    return promedio;
+}
+
+function validarNombre(nombre){
+    if ( (nombre != "*") && (nombre != "") ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+while(validarNombre(nombreAlumno)){
 
     do{
         nota1 = parseInt(prompt("Ingrese primera nota (entre 1 y 10)"));
-    }while( (isNaN(nota1)) || (nota1 < 1) || (nota1 > 10) );
+    }while(validarNota(nota1));
 
     do{
         nota2 = parseInt(prompt("Ingrese segunda nota (entre 1 y 10)"));
-    }while( (isNaN(nota2)) || (nota2 < 1) || (nota2 > 10) );
+    }while(validarNota(nota2));
 
     do{
         nota3 = parseInt(prompt("Ingrese tercera nota (entre 1 y 10)"));
-    }while( (isNaN(nota3)) || (nota3 < 1) || (nota3 > 10) );
+    }while(validarNota(nota3));
     
-    promedio = (nota1 + nota2 + nota3) / 3;
+    promedio = calcularPromedio(nota1, nota2, nota3);
 
     if(promedio > mejorPromedio){
         mejorPromedio = promedio;
