@@ -1,10 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 
-.encabezado{
+header{
+    height: 50px;
+}
+
+body{
     background-color: green;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 10px;
+}
 
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.ruleta{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(13, 1fr);
+    
+
+}
+
+img{
+    width: 50px;
+}
+
+button{
+    padding: 1rem;
+    background-color: green;
+    border-width: thin;
+    border-color: yellow;
+}
+
+.but__cero{
+    grid-column: 3 / 6;
+}
+
+.but__par{
+    grid-column: 1 / 2;
+    grid-row: 2 / 5;
+}
+
+.but__rojo{
+    grid-column: 1 / 2;
+    grid-row: 5 / 8;
+}
+
+.but__negro{
+    grid-column: 1 / 2;
+    grid-row: 8 / 11;
+}
+
+.but__impar{
+    grid-column: 1 / 2;
+    grid-row: 11 / 14;
+}
+
+.but__primera{
+    grid-column: 2 / 3;
+    grid-row: 2 / 6;
+    
+}
+
+.but__segunda{
+    grid-column: 2 / 3;
+    grid-row: 6 / 10;
+
+    
+}
+
+.but__tercera{
+    grid-column: 2 / 3;
+    grid-row: 10 / 14;
+    
 }

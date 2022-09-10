@@ -1,188 +1,341 @@
-//EJERCICIO PROMEDIO DE NOTAS
 
-/*let nombre = prompt("Ingrese nombre del alumno: ");
-console.log(nombre);
+const tirosRuleta = [];
+const apuestas = [];
 
-let nota1  = prompt("Ingrese nota 1: ");
+const numApostados = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-let nota2 = prompt("Ingrese nota 2: ");
+let apuesta = {};
 
-let nota3 = prompt("Ingrese nota 3: ");
+let tiroRuleta = {};
 
 
-let promedio = parseFloat((parseInt(nota1) + parseInt(nota2) + parseInt(nota3)) / 3);
 
-console.log(promedio);
 
-alert(`El promedio de ${nombre} es ${promedio}`);
-*/
+// CLASE PARA INSTANCIAR EL TIRO QUE SALIO EN LA RULETA EN UN OBJETO
 
-//EJERCICIO CICLO FOR
-/*let nro = parseInt(prompt("Ingrese un numero"));
+// RECBE COMO VALOR UN NUMERO, UN COLOR, PAR O IMPAR Y A QUE DOCENA
+//PERTENECE
 
-for (let i = 0; i <=10; i++){
-    console.log(`${nro} * ${i} = ${nro*i}`);
+class Tiro{
+    constructor(n,c,p,d){
+        this.numero = n;
+        this.color = c;
+        this.paridad = p;
+        this.docena = d;
+    }
+
 }
-*/
 
-//DESAFÍO APLICANDO FUNCIONES
+// CLASE PARA INSTANCIAR LA APUESTA DEL JUGADOR EN UN OBJETO
 
-// let nota1;
-// let nota2;
-// let nota3;
-// let promedio;
-// let mejorPromedio = 0;
-// let mejorAlumno;
+// RECIBE COMO VALORES LA CANTIDAD DE PLATA QUE APUESTA POR CADA NUMERO
+// O CHANCE
 
-// let nombreAlumno = prompt("Ingrese el nombre del alumno o * para salir:");
+class Apuesta{
+    constructor(nros,r,n,p,i,d1,d2,d3){
+        this.numApostados = nros;
+        this.rojo = r;
+        this.negro = n;
+        this.par = p;
+        this.impar = i;
+        this.doce1 = d1;
+        this.doce2 = d2;
+        this.doce3 = d3;
+    }
+}
 
-// function validarNota(nota){
-//     if ( (isNaN(nota)) || (nota < 1) || (nota > 10) ){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
+// FUNCION PARA VALIDAR EL NUMERO APOSTADO
 
-// function calcularPromedio(a, b, c){
-//     promedio = (a + b + c) / 3;
-//     return promedio;
-// }
-
-// function validarNombre(nombre){
-//     if ( (nombre != "*") && (nombre != "") ){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
+function validarNumero(n){
+    if (((n >= 0) && (n <= 36)) || (n == "*")){
+        return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
-// while(validarNombre(nombreAlumno)){
+function inicializarNumApostados(){
+    for (let i=0; i<=36; i++){
+        numApostados[i] = 0;
+    }
+}
 
-//     do{
-//         nota1 = parseInt(prompt("Ingrese primera nota (entre 1 y 10)"));
-//     }while(validarNota(nota1));
+let importeApuesta = 0;
+let numeroApuesta = 0;
 
-//     do{
-//         nota2 = parseInt(prompt("Ingrese segunda nota (entre 1 y 10)"));
-//     }while(validarNota(nota2));
 
-//     do{
-//         nota3 = parseInt(prompt("Ingrese tercera nota (entre 1 y 10)"));
-//     }while(validarNota(nota3));
+// ESTA FUNCION RECIBE LA APUESTA DE NUMEROS Y CHANCES DEL JUGADOR
+
+// LA IDEA MAS ADELANTE ES QUE EL JUGADOR PUEDA CLICKEAR LAS OPCIONES
+// EN EL PAÑO DE LA RULETA
+
+function apostar(){
+
+    do{
+        numeroApuesta = prompt("Ingrese número a apostar (0 al 36) o * para salir: ");
+    }while(validarNumero(numeroApuesta) == false);
+
+
+    while(numeroApuesta != "*"){
+
+        importeApuesta = parseInt(prompt("Ingrese dinero a apostar: "));
+
+        i = numeroApuesta;
+
+        numApostados[i] = numApostados[i] + importeApuesta;
+
+        do{
+            numeroApuesta = prompt("Ingrese número a apostar (0 al 36) o * para salir: ");
+        }while(validarNumero(numeroApuesta) == false);
     
-//     promedio = calcularPromedio(nota1, nota2, nota3);
+    }
 
-//     if(promedio > mejorPromedio){
-//         mejorPromedio = promedio;
-//         mejorAlumno = nombreAlumno;
-//     }
+    let rojoApuesta = parseInt(prompt("ingrese dinero a apostar al rojo: "));
+    let negroApuesta = parseInt(prompt("ingrese dinero a apostar al negro: "));
+    let parApuesta = parseInt(prompt("Ingrese dinero a par: "));
+    let imparApuesta = parseInt(prompt("ingrese dinero a impar: "));
+    let doce1Apuesta = parseInt(prompt("Ingrese dinero primera docena: "));
+    let doce2Apuesta = parseInt(prompt("ingrese dinero segunda docena: "));
+    let doce3Apuesta = parseInt(prompt("Ingrese dinero tercera docena: "));
 
-//     console.log(`El promedio de ${nombreAlumno} es: ${promedio}`);
-    
-//     nombreAlumno = prompt("Ingrese nombre del alumno o * para salir:");
-// }
+    apuesta = new Apuesta (numApostados, rojoApuesta, negroApuesta, parApuesta, imparApuesta, doce1Apuesta, doce2Apuesta, doce3Apuesta);
+    apuestas.push(apuesta);
+        
+}
 
-// if(mejorPromedio != 0){
+// FUNCIÓN PARA CHEQUEAR SI EL NÚMERO QUE SALIÓ EN LA RULETA ES PAR O IMPAR
 
-//     alert(`El mejor alumno es ${mejorAlumno} y su promedio es ${mejorPromedio}`);
-//     console.log(`El mejor alumno es ${mejorAlumno} y su promedio es ${mejorPromedio}`);
-
-// }else{
-//     console.log("No se ha cargado ningun alumno");
-//     alert("No se ha cargado ningun alumno");
-// }
-
-
-let nota1;
-let nota2;
-let nota3;
-let promedio;
-let mejorPromedio = 0;
-let mejorAlumno;
-
-const alumno={nombre:"", notaUno:0, notaDos:0, notaTres:0};
-
-const listAlumnos=[];
-
-let nombreAlumno = prompt("Ingrese el nombre del alumno o * para salir:");
-
-function validarNota(nota){
-    if ( (isNaN(nota)) || (nota < 1) || (nota > 10) ){
+function chequeoPar(nro){
+    if (nro % 2 == 0){
         return true;
     }else{
         return false;
     }
 }
 
-function validarNombre(nombre){
-    if ( (nombre != "*") && (nombre != "") ){
-        return true;
+// FUNCIÓN PARA CHEQUEAR A QUÉ DOCENA PERTNECE EL NÚMERO QUE SALIÓ EN LA RULETA
+
+function chequeoDocena(nro){
+    if (nro >= 1 && nro <= 12){
+        let doc = 1;
+        return doc;
+    }else if(nro >= 13 && nro <=24){
+        let doc = 2;
+        return doc;
     }else{
-        return false;
+        let doc = 3;
+        return doc;
+    }
+    
+}
+
+// FUNCIÓN QUE DEVUELVE EL COLOR DE NÚMERO QUE SALIÓ EN LA RULETA
+
+function chequeoColor(nro){
+    if ((nro == 2)||(nro == 4)||(nro == 6)||(nro == 8)||(nro == 10)||(nro == 11)
+        ||(nro == 13)||(nro == 15)||(nro == 17)||(nro == 20)||(nro == 22)||(nro == 24)
+        ||(nro == 26)||(nro == 28)||(nro == 29)||(nro == 31)||(nro == 33)||(nro == 35)){
+            let col = "negro";
+            return col;
+    }else{
+            let col = "rojo";
+            return col;
     }
 }
 
-function CrearAlumno(nombre, n1, n2, n3){
-    this.nombre = nombre,
-    this.notaUno = n1,
-    this.notaDos = n2,
-    this.notaTres = n3,
 
-    this.calcProm = () => {
-        return ((n1+n2+n3)/3);
-    } 
+function chequeoTiroRuleta(){
+    if (numeroAleatorio == 0){
+        par = "cero";
+        color = "cero";
+        doce = "cero";
+    }else{
+        if (chequeoPar(numeroAleatorio)){
+            par = "par";
+        }else{
+            par = "impar";
+        }
+        doce = chequeoDocena(numeroAleatorio);
+        color = chequeoColor(numeroAleatorio);
+    }
 }
 
-while(validarNombre(nombreAlumno)){
 
-    do{
-        nota1 = parseInt(prompt("Ingrese primera nota (entre 1 y 10)"));
-    }while(validarNota(nota1));
+// FUNCION QUE DEVUELVE CUANTO GANA SI ACIERTA EL NÚMERO
 
-    do{
-        nota2 = parseInt(prompt("Ingrese segunda nota (entre 1 y 10)"));
-    }while(validarNota(nota2));
+function pagaNumeros(nros, nroAle){
+    let ganaNro = nros[nroAle] * 36;
+    return ganaNro;
+}
 
-    do{
-        nota3 = parseInt(prompt("Ingrese tercera nota (entre 1 y 10)"));
-    }while(validarNota(nota3));
-    
-    const alumno = new CrearAlumno(nombreAlumno,nota1,nota2,nota3);
-    
-    listAlumnos.push(alumno);
-    
-    promedio = alumno.calcProm();
+// FUNCION QUE DEVUELVE CUANTO GANA SI ACIERTA EL COLOR ROJO
 
-    if(promedio > mejorPromedio){
-        mejorPromedio = promedio;
-        mejorAlumno = nombreAlumno;
+function pagaColorRojo(col){
+    if (col != 0){
+        let ganaCol = col * 2;
+        return ganaCol;
+    }else{
+        let ganaCol = 0;
+        return ganaCol;
     }
+}
 
+// FUNCION QUE DEVUELVE CUANTO GANA SI ACIERTA EL COLOR NEGRO
+
+function pagaColorNegro(col){
+    if (col != 0){
+        let ganaCol = col * 2;
+        return ganaCol;
+    }else{
+        ganaCol = 0;
+        return ganaCol;
+    }
+}
+
+// FUNCION QUE DEVUELVE CUANTO GANA SI ACIERTA PAR O IMPAR
+
+let ganaParImpar = 0;
+
+function pagaParImpar(parApo, imparApo, paridadAle){
  
-    nombreAlumno = prompt("Ingrese nombre del alumno o * para salir:");
+    if (paridadAle == "par"){
+        if (parApo != 0){
+            ganaParImpar = parApo * 2;
+            return ganaParImpar;
+        }else{
+            ganaParImpar = 0;
+            return ganaParImpar;
+        }
+    }else if (paridadAle == "impar"){
+        if (imparApo != 0){
+            ganaParImpar = imparApo * 2;
+            return ganaParImpar;
+        }else{
+            ganaParImpar = 0;
+            return ganaParImpar;
+        }
+    }else{
+        ganaParImpar = 0;
+        return ganaParImpar;
+
+    }
 }
 
-for(let prop of listAlumnos){
-    console.log(`Nombre del Alumno: ${prop.nombre}`);
-    console.log(`Nota 1: ${prop.notaUno}`);
-    console.log(`Nota 2: ${prop.notaDos}`);
-    console.log(`Nota 3: ${prop.notaTres}`);
-    console.log(`Promedio: ${prop.calcProm()}`);
-   
+// FUNCION QUE DEVUELVE CUANTO GANA SI ACIERTA LA DOCENA
+
+let ganaDoc = 0;
+
+function pagaDocena(docApo1, docApo2, docApo3, docNroAle){
+    if (docNroAle == 1){
+        if (docApo1 != 0){
+            ganaDoc = docApo1 * 3;
+            return ganaDoc;
+        }else{
+            ganaDoc = 0;
+            return ganaDoc;
+        }
+    }else if (docNroAle == 2){
+        if (docApo2 != 0){
+            ganaDoc = docApo2 * 3;
+            return ganaDoc;
+        }else{
+            ganaDoc = 0;
+            return ganaDoc;
+        }
+    }else if (docNroAle == 3){
+        if (docApo3 != 0){
+            ganaDoc = docApo3 * 3;
+            return ganaDoc;
+        }else{
+            ganaDoc = 0;
+            return ganaDoc;
+        }
+    }else{
+        ganaDoc = 0;
+        return ganaDoc;
+    }
 }
 
-if(mejorPromedio != 0){
+let numeroAleatorio = 0;
+let rta = "s";
 
-    alert(`El mejor alumno es ${mejorAlumno} y su promedio es ${mejorPromedio}`);
-    console.log(`El mejor alumno es ${mejorAlumno} y su promedio es ${mejorPromedio}`);
+do{
 
-}else{
-    console.log("No se ha cargado ningun alumno");
-    alert("No se ha cargado ningun alumno");
-}
+    apostar();
 
+    numeroAleatorio = Math.floor(Math.random() * 36);
+    console.log(`salio el numero ${numeroAleatorio}`);
+
+    // numeroAleatorio = 0;
+
+    chequeoTiroRuleta();
+
+    tiroRuleta = new Tiro(numeroAleatorio,color,par,doce);
+    tirosRuleta.push(tiroRuleta);
+
+    alert(`Este es el número que salio en la ruleta: ${tiroRuleta.numero}
+                el color es ${tiroRuleta.color}
+                es ${tiroRuleta.paridad}
+                y pertenece a la ${tiroRuleta.docena}`);
+            
+
+    let pagaNum = pagaNumeros(apuesta.numApostados, numeroAleatorio);
+
+    if (pagaNum != 0){
+        alert(`Ganaste ${pagaNum} por haber apostado al ${numeroAleatorio}`);
+    }
+
+
+    if (tiroRuleta.color == "rojo"){
+        let pagaColR = pagaColorRojo(apuesta.rojo);
+        if (pagaColR != 0){
+            alert(`Ganaste ${pagaColR} por haber apostado ${apuesta.rojo} pesos al ${tiroRuleta.color}`);
+        }
+    }else if (tiroRuleta.color == "negro"){
+        let pagaColN = pagaColorNegro(apuesta.negro);
+        if (pagaColN != 0){
+            alert(`Ganaste ${pagaColN} por haber apostado ${apuesta.negro} pesos al ${tiroRuleta.color}`);
+        }
+        }
+
+
+    let pagaParidad = pagaParImpar(apuesta.par, apuesta.impar, tiroRuleta.paridad);
+
+    if (pagaParidad != 0){
+        alert(`Ganaste ${pagaParidad} por haber apostado ${tiroRuleta.paridad}`)
+    }
+
+    let pagaDoc = pagaDocena(apuesta.doce1, apuesta.doce2, apuesta.doce3, tiroRuleta.docena);
+
+    if (pagaDoc != 0){
+        alert(`Ganaste ${pagaDoc} por haber acertado la docena ${tiroRuleta.docena}`)
+    }
+
+
+    for(let i=0; i<=36; i++){
+        if (apuesta.numApostados[i] != 0){
+            console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
+        }
+    }
+
+    inicializarNumApostados(); // VUELVO EL ARRAY A CERO
+
+
+    console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
+    console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
+    console.log(`Apostaste ${apuesta.par} pesos a Par`);
+    console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
+    console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
+    console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
+    console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
+
+    rta = prompt("Desea hacer otro tiro (s/n)?");
+
+}while(rta.toLowerCase() == "s");
+
+tirosRuleta.forEach(element => console.log(element));
 
 
 
