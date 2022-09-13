@@ -46,6 +46,8 @@ class Apuesta{
     }
 }
 
+
+
 // FUNCION PARA VALIDAR EL NUMERO APOSTADO
 
 function validarNumero(n){
@@ -73,8 +75,137 @@ let numeroApuesta = 0;
 // LA IDEA MAS ADELANTE ES QUE EL JUGADOR PUEDA CLICKEAR LAS OPCIONES
 // EN EL PAÑO DE LA RULETA
 
-function apostar(){
 
+
+// let numerosApostados = document.getElementsByClassName("nrosApostados");
+
+// let nuevoNumApos = document.createElement("div");
+
+// nuevoNumApos.innerHTML = `<input type="text"><button id="numApos" value="numero"></button>
+//                               <input type="text"><button id="fichasApos" value="fichas"></button>`;
+
+// numerosApostados.append(nuevoNumApos);
+
+function controlarPagar(){
+
+    chequeoTiroRuleta();
+
+    tiroRuleta = new Tiro(numeroAleatorio,color,par,doce);
+    tirosRuleta.push(tiroRuleta);
+
+    alert(`Este es el número que salio en la ruleta: ${tiroRuleta.numero}
+                el color es ${tiroRuleta.color}
+                es ${tiroRuleta.paridad}
+                y pertenece a la ${tiroRuleta.docena}`);
+     
+    
+    
+    let pagaNum = pagaNumeros(apuesta.numApostados, numeroAleatorio);
+
+    if (pagaNum != 0){
+        
+        alert(`Ganaste ${pagaNum} por haber apostado al ${numeroAleatorio}`);
+    }
+
+
+    if (tiroRuleta.color == "rojo"){
+        let pagaColR = pagaColorRojo(apuesta.rojo);
+        if (pagaColR != 0){
+            alert(`Ganaste ${pagaColR} por haber apostado ${apuesta.rojo} pesos al ${tiroRuleta.color}`);
+        }
+    }else if (tiroRuleta.color == "negro"){
+        let pagaColN = pagaColorNegro(apuesta.negro);
+        if (pagaColN != 0){
+            alert(`Ganaste ${pagaColN} por haber apostado ${apuesta.negro} pesos al ${tiroRuleta.color}`);
+        }
+        }
+
+
+    let pagaParidad = pagaParImpar(apuesta.par, apuesta.impar, tiroRuleta.paridad);
+
+    if (pagaParidad != 0){
+        alert(`Ganaste ${pagaParidad} por haber apostado ${tiroRuleta.paridad}`)
+    }
+
+    let pagaDoc = pagaDocena(apuesta.doce1, apuesta.doce2, apuesta.doce3, tiroRuleta.docena);
+
+    if (pagaDoc != 0){
+        alert(`Ganaste ${pagaDoc} por haber acertado la docena ${tiroRuleta.docena}`)
+    }
+
+    mostrarApuesta();
+
+}
+
+
+function apostarChances(){
+    let rojoApuesta = document.getElementById("fichasRojo");
+    let negroApuesta = document.getElementById("fichasNegro");
+    let parApuesta = document.getElementById("fichasPar");
+    let imparApuesta = document.getElementById("fichasImpar");
+    let doce1Apuesta = document.getElementById("fichasDoce1");
+    let doce2Apuesta = document.getElementById("fichasDoce2");
+    let doce3Apuesta = document.getElementById("fichasDoce3");
+
+    apuesta = new Apuesta (numApostados, rojoApuesta.value, negroApuesta.value, parApuesta.value, imparApuesta.value, doce1Apuesta.value, doce2Apuesta.value, doce3Apuesta.value);
+    apuestas.push(apuesta);
+
+    console.log(apuesta);
+    controlarPagar();
+
+
+
+    // chequeoTiroRuleta();
+
+    // tiroRuleta = new Tiro(numeroAleatorio,color,par,doce);
+    // tirosRuleta.push(tiroRuleta);
+
+    // alert(`Este es el número que salio en la ruleta: ${tiroRuleta.numero}
+    //             el color es ${tiroRuleta.color}
+    //             es ${tiroRuleta.paridad}
+    //             y pertenece a la ${tiroRuleta.docena}`);
+     
+    
+    
+    // let pagaNum = pagaNumeros(apuesta.numApostados, numeroAleatorio);
+
+    // if (pagaNum != 0){
+    //     alert(`Ganaste ${pagaNum} por haber apostado al ${numeroAleatorio}`);
+    // }
+
+
+    // if (tiroRuleta.color == "rojo"){
+    //     let pagaColR = pagaColorRojo(apuesta.rojo);
+    //     if (pagaColR != 0){
+    //         alert(`Ganaste ${pagaColR} por haber apostado ${apuesta.rojo} pesos al ${tiroRuleta.color}`);
+    //     }
+    // }else if (tiroRuleta.color == "negro"){
+    //     let pagaColN = pagaColorNegro(apuesta.negro);
+    //     if (pagaColN != 0){
+    //         alert(`Ganaste ${pagaColN} por haber apostado ${apuesta.negro} pesos al ${tiroRuleta.color}`);
+    //     }
+    //     }
+
+
+    // let pagaParidad = pagaParImpar(apuesta.par, apuesta.impar, tiroRuleta.paridad);
+
+    // if (pagaParidad != 0){
+    //     alert(`Ganaste ${pagaParidad} por haber apostado ${tiroRuleta.paridad}`)
+    // }
+
+    // let pagaDoc = pagaDocena(apuesta.doce1, apuesta.doce2, apuesta.doce3, tiroRuleta.docena);
+
+    // if (pagaDoc != 0){
+    //     alert(`Ganaste ${pagaDoc} por haber acertado la docena ${tiroRuleta.docena}`)
+    // }
+
+
+}
+
+
+function apostar(){
+    
+    
     do{
         numeroApuesta = prompt("Ingrese número a apostar (0 al 36) o * para salir: ");
     }while(validarNumero(numeroApuesta) == false);
@@ -94,18 +225,37 @@ function apostar(){
     
     }
 
-    let rojoApuesta = parseInt(prompt("ingrese dinero a apostar al rojo: "));
-    let negroApuesta = parseInt(prompt("ingrese dinero a apostar al negro: "));
-    let parApuesta = parseInt(prompt("Ingrese dinero a par: "));
-    let imparApuesta = parseInt(prompt("ingrese dinero a impar: "));
-    let doce1Apuesta = parseInt(prompt("Ingrese dinero primera docena: "));
-    let doce2Apuesta = parseInt(prompt("ingrese dinero segunda docena: "));
-    let doce3Apuesta = parseInt(prompt("Ingrese dinero tercera docena: "));
+//     let botonRojo = document.getElementById("botRojo");
+//     let fichasRojo = document.getElementById("fichasR");
 
-    apuesta = new Apuesta (numApostados, rojoApuesta, negroApuesta, parApuesta, imparApuesta, doce1Apuesta, doce2Apuesta, doce3Apuesta);
-    apuestas.push(apuesta);
+//     let rojoApuesta = 0;
+
+//     botonRojo.onclick = () => {rojoApuesta = fichasRojo.value};
+
+
+    
+//     //botonRojo.onclick = emparentar(fichasRojo.value);
+    let btnConfApuesta = document.getElementById("confApuesta"); 
+    btnConfApuesta.addEventListener("click", apostarChances);
+
+    // let rojoApuesta = parseInt(prompt("ingrese dinero a apostar al rojo: "));
+    // let negroApuesta = parseInt(prompt("ingrese dinero a apostar al negro: "));
+    // let parApuesta = parseInt(prompt("Ingrese dinero a par: "));
+    // let imparApuesta = parseInt(prompt("ingrese dinero a impar: "));
+    // let doce1Apuesta = parseInt(prompt("Ingrese dinero primera docena: "));
+    // let doce2Apuesta = parseInt(prompt("ingrese dinero segunda docena: "));
+    // let doce3Apuesta = parseInt(prompt("Ingrese dinero tercera docena: "));
+
+    // apuesta = new Apuesta (numApostados, rojoApuesta.value, negroApuesta.value, parApuesta.value, imparApuesta.value, doce1Apuesta.value, doce2Apuesta.value, doce3Apuesta.value);
+    // apuestas.push(apuesta);
         
 }
+
+
+
+
+
+
 
 // FUNCIÓN PARA CHEQUEAR SI EL NÚMERO QUE SALIÓ EN LA RULETA ES PAR O IMPAR
 
@@ -143,15 +293,6 @@ function chequeoColor(nro){
         let col = "rojo";
         return col;
     }
-    // if ((nro == 2)||(nro == 4)||(nro == 6)||(nro == 8)||(nro == 10)||(nro == 11)
-    //     ||(nro == 13)||(nro == 15)||(nro == 17)||(nro == 20)||(nro == 22)||(nro == 24)
-    //     ||(nro == 26)||(nro == 28)||(nro == 29)||(nro == 31)||(nro == 33)||(nro == 35)){
-    //         let col = "negro";
-    //         return col;
-    // }else{
-    //         let col = "rojo";
-    //         return col;
-    // }
 }
 
 
@@ -270,133 +411,53 @@ function pagaDocena(docApo1, docApo2, docApo3, docNroAle){
 // FUNCIÓN QUE MUESTRA LA APUESTA REALIZADA POR EL JUGADOR
 
 function mostrarApuesta(){
-
-
-    // const result = numApostados.filter(fichas => fichas != 0);
-
-    // console.log(result);
-
     let i = 0;
-
+    
     for (let fichas of numApostados) {
-        
         if (fichas != 0){
-            console.log(`Apostaste ${fichas} al nro ${i}`);
+           console.log(`Apostaste ${fichas} al nro ${i}`);
         }
 
         i += 1;
     }
-    
-    
-    // for(let i=0; i<=36; i++){
-    //     if (apuesta.numApostados[i] != 0){
-    //         console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
-    //     }
-    // }
 
-    //  inicializarNumApostados(); // VUELVO EL ARRAY A CERO
 
     for (const prop in apuesta) {
         console.log(`${prop}: ${apuesta[prop]}`);
       }
 
 
-    // console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
-    // console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
-    // console.log(`Apostaste ${apuesta.par} pesos a Par`);
-    // console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
-    // console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
-    // console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
-    // console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
 
 }
+
 
 
 let numeroAleatorio = 0;
 let rta = "s";
 
-do{
+
+
+//do{
 
     apostar();
-
+   
     // GENERO UN NÚMERO ALEATORIO
 
     numeroAleatorio = Math.floor(Math.random() * 36);
-    console.log(`salio el numero ${numeroAleatorio}`);
+//    console.log(`salio el numero ${numeroAleatorio}`);
 
     // numeroAleatorio = 0;
+    //mostrarApuesta(apuesta);
 
-    // MANDO A CHEQUEAR EL NÚMERO QUE SALIÓ EN LA RULETA
+    //console.log(apuesta);
+    
+  //  inicializarNumApostados(); // VUELVO EL ARRAY A CERO
 
-    chequeoTiroRuleta();
+//    rta = prompt("Desea hacer otro tiro (s/n)?");
 
-    tiroRuleta = new Tiro(numeroAleatorio,color,par,doce);
-    tirosRuleta.push(tiroRuleta);
+// }while(rta.toLowerCase() == "s");
 
-    alert(`Este es el número que salio en la ruleta: ${tiroRuleta.numero}
-                el color es ${tiroRuleta.color}
-                es ${tiroRuleta.paridad}
-                y pertenece a la ${tiroRuleta.docena}`);
-            
-
-    let pagaNum = pagaNumeros(apuesta.numApostados, numeroAleatorio);
-
-    if (pagaNum != 0){
-        alert(`Ganaste ${pagaNum} por haber apostado al ${numeroAleatorio}`);
-    }
-
-
-    if (tiroRuleta.color == "rojo"){
-        let pagaColR = pagaColorRojo(apuesta.rojo);
-        if (pagaColR != 0){
-            alert(`Ganaste ${pagaColR} por haber apostado ${apuesta.rojo} pesos al ${tiroRuleta.color}`);
-        }
-    }else if (tiroRuleta.color == "negro"){
-        let pagaColN = pagaColorNegro(apuesta.negro);
-        if (pagaColN != 0){
-            alert(`Ganaste ${pagaColN} por haber apostado ${apuesta.negro} pesos al ${tiroRuleta.color}`);
-        }
-        }
-
-
-    let pagaParidad = pagaParImpar(apuesta.par, apuesta.impar, tiroRuleta.paridad);
-
-    if (pagaParidad != 0){
-        alert(`Ganaste ${pagaParidad} por haber apostado ${tiroRuleta.paridad}`)
-    }
-
-    let pagaDoc = pagaDocena(apuesta.doce1, apuesta.doce2, apuesta.doce3, tiroRuleta.docena);
-
-    if (pagaDoc != 0){
-        alert(`Ganaste ${pagaDoc} por haber acertado la docena ${tiroRuleta.docena}`)
-    }
-
-
-    mostrarApuesta();
-
-    // for(let i=0; i<=36; i++){
-    //     if (apuesta.numApostados[i] != 0){
-    //         console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
-    //     }
-    // }
-
-    inicializarNumApostados(); // VUELVO EL ARRAY A CERO
-
-
-    // console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
-    // console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
-    // console.log(`Apostaste ${apuesta.par} pesos a Par`);
-    // console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
-    // console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
-    // console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
-    // console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
-
-    rta = prompt("Desea hacer otro tiro (s/n)?");
-
-}while(rta.toLowerCase() == "s");
-
-tirosRuleta.forEach(element => console.log(element));
-
+// tirosRuleta.forEach(element => console.log(element));
 
 
 

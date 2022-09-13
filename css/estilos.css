@@ -17,6 +17,11 @@ body{
     justify-content: space-around;
 }
 
+.colorApostado{
+    display: flex;
+    flex-direction: column;
+}
+
 .ruleta{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
