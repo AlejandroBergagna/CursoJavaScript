@@ -2,7 +2,9 @@
 const tirosRuleta = [];
 const apuestas = [];
 
-const numApostados = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+let numApostados = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+const numNegros = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,3,33,35];
 
 let apuesta = {};
 
@@ -134,15 +136,22 @@ function chequeoDocena(nro){
 // FUNCIÓN QUE DEVUELVE EL COLOR DE NÚMERO QUE SALIÓ EN LA RULETA
 
 function chequeoColor(nro){
-    if ((nro == 2)||(nro == 4)||(nro == 6)||(nro == 8)||(nro == 10)||(nro == 11)
-        ||(nro == 13)||(nro == 15)||(nro == 17)||(nro == 20)||(nro == 22)||(nro == 24)
-        ||(nro == 26)||(nro == 28)||(nro == 29)||(nro == 31)||(nro == 33)||(nro == 35)){
-            let col = "negro";
-            return col;
+    if (numNegros.includes(nro)){
+        let col = "negro";
+        return col;
     }else{
-            let col = "rojo";
-            return col;
+        let col = "rojo";
+        return col;
     }
+    // if ((nro == 2)||(nro == 4)||(nro == 6)||(nro == 8)||(nro == 10)||(nro == 11)
+    //     ||(nro == 13)||(nro == 15)||(nro == 17)||(nro == 20)||(nro == 22)||(nro == 24)
+    //     ||(nro == 26)||(nro == 28)||(nro == 29)||(nro == 31)||(nro == 33)||(nro == 35)){
+    //         let col = "negro";
+    //         return col;
+    // }else{
+    //         let col = "rojo";
+    //         return col;
+    // }
 }
 
 
@@ -258,6 +267,51 @@ function pagaDocena(docApo1, docApo2, docApo3, docNroAle){
     }
 }
 
+// FUNCIÓN QUE MUESTRA LA APUESTA REALIZADA POR EL JUGADOR
+
+function mostrarApuesta(){
+
+
+    // const result = numApostados.filter(fichas => fichas != 0);
+
+    // console.log(result);
+
+    let i = 0;
+
+    for (let fichas of numApostados) {
+        
+        if (fichas != 0){
+            console.log(`Apostaste ${fichas} al nro ${i}`);
+        }
+
+        i += 1;
+    }
+    
+    
+    // for(let i=0; i<=36; i++){
+    //     if (apuesta.numApostados[i] != 0){
+    //         console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
+    //     }
+    // }
+
+    //  inicializarNumApostados(); // VUELVO EL ARRAY A CERO
+
+    for (const prop in apuesta) {
+        console.log(`${prop}: ${apuesta[prop]}`);
+      }
+
+
+    // console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
+    // console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
+    // console.log(`Apostaste ${apuesta.par} pesos a Par`);
+    // console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
+    // console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
+    // console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
+    // console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
+
+}
+
+
 let numeroAleatorio = 0;
 let rta = "s";
 
@@ -265,10 +319,14 @@ do{
 
     apostar();
 
+    // GENERO UN NÚMERO ALEATORIO
+
     numeroAleatorio = Math.floor(Math.random() * 36);
     console.log(`salio el numero ${numeroAleatorio}`);
 
     // numeroAleatorio = 0;
+
+    // MANDO A CHEQUEAR EL NÚMERO QUE SALIÓ EN LA RULETA
 
     chequeoTiroRuleta();
 
@@ -314,22 +372,24 @@ do{
     }
 
 
-    for(let i=0; i<=36; i++){
-        if (apuesta.numApostados[i] != 0){
-            console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
-        }
-    }
+    mostrarApuesta();
+
+    // for(let i=0; i<=36; i++){
+    //     if (apuesta.numApostados[i] != 0){
+    //         console.log(`Apostaste ${apuesta.numApostados[i]} pesos al numero ${i}`);
+    //     }
+    // }
 
     inicializarNumApostados(); // VUELVO EL ARRAY A CERO
 
 
-    console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
-    console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
-    console.log(`Apostaste ${apuesta.par} pesos a Par`);
-    console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
-    console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
-    console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
-    console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
+    // console.log(`Aposaste ${apuesta.rojo} pesos a Rojo`);
+    // console.log(`Apostaste ${apuesta.negro} pesos a Negro`);
+    // console.log(`Apostaste ${apuesta.par} pesos a Par`);
+    // console.log(`Apostaste ${apuesta.impar} pesos a Impar`);  
+    // console.log(`Apostaste ${apuesta.doce1} pesos a Primera Docena`);
+    // console.log(`Apostaste ${apuesta.doce2} pesos a Segunda Docena`);
+    // console.log(`Apostaste ${apuesta.doce3} pesos a Tercera Docena`);
 
     rta = prompt("Desea hacer otro tiro (s/n)?");
 
