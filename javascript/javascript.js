@@ -435,7 +435,7 @@ botonPar.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                         
                                         console.log(`Apostando ${apuestaPar} a PAR`);
                                         
-                                        fichitaPar.innerHTML = `<p class="FichasApostadas">${apuestaPar} fichas</p>`;
+                                        fichitaPar.innerHTML = `<p class="FichasApostadas fichitas">${apuestaPar} fichas</p>`;
                                         botonPar.append(fichitaPar)
                                         
                                         jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -449,7 +449,7 @@ botonImpar.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                           
                                           console.log(`Apostando ${apuestaImpar} a IMPAR`);
                                           
-                                          fichitaImpar.innerHTML = `<p class="FichasApostadas">${apuestaImpar} fichas</p>`;
+                                          fichitaImpar.innerHTML = `<p class="FichasApostadas fichitas">${apuestaImpar} fichas</p>`;
                                           botonImpar.append(fichitaImpar)
                                           
                                           jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -463,7 +463,7 @@ botonRojo.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                          
                                          console.log(`Apostando ${apuestaRojo} a ROJO`)
                                          
-                                         fichitaRojo.innerHTML = `<p class="FichasApostadas">${apuestaRojo} fichas</p>`;
+                                         fichitaRojo.innerHTML = `<p class="FichasApostadas fichitas">${apuestaRojo} fichas</p>`;
                                          botonRojo.append(fichitaRojo)
                                          
                                          jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -477,7 +477,7 @@ botonNegro.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                           
                                           console.log(`Apostando ${apuestaNegro} a NEGRO`)
                                           
-                                          fichitaNegro.innerHTML = `<p class="FichasApostadas">${apuestaNegro} fichas</p>`;
+                                          fichitaNegro.innerHTML = `<p class="FichasApostadas fichitas">${apuestaNegro} fichas</p>`;
                                           botonNegro.append(fichitaNegro)                              
                                           
                                           jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -491,7 +491,7 @@ botonPrimeraDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                                   
                                                   console.log(`Apostando ${apuestaPDoc} a PRIMERA DOCENA`)
 
-                                                  fichitaPDoc.innerHTML = `<p class="FichasApostadas">${apuestaPDoc} fichas</p>`;
+                                                  fichitaPDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaPDoc} fichas</p>`;
                                                   botonPrimeraDocena.append(fichitaPDoc)                              
 
                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -505,7 +505,7 @@ botonSegundaDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
                                                   
                                                   console.log(`Apostando ${apuestaSDoc} a SEGUNDA DOCENA`)
 
-                                                  fichitaSDoc.innerHTML = `<p class="FichasApostadas">${apuestaSDoc} fichas</p>`;
+                                                  fichitaSDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaSDoc} fichas</p>`;
                                                   botonSegundaDocena.append(fichitaSDoc)                              
 
                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -519,7 +519,7 @@ botonTerceraDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
 
                                                   console.log(`Apostando ${apuestaTDoc} a TERCERA DOCENA`)
 
-                                                  fichitaTDoc.innerHTML = `<p class="FichasApostadas">${apuestaTDoc} fichas</p>`;
+                                                  fichitaTDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaTDoc} fichas</p>`;
                                                   botonTerceraDocena.append(fichitaTDoc)                              
 
                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
@@ -531,7 +531,7 @@ let boton1 = document.getElementById("btn1");
 boton1.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                       numApostados[1] = sumarFichas(1, numApostados[1])
                                       console.log(`Apostando ${numApostados[1]} al NUMERO 1`)
-                                      boton1.innerHTML = `1 <p class="FichasApostadas">${numApostados[1]} fichas`}
+                                      boton1.innerHTML = `1 <p class="FichasApostadas fichitas">${numApostados[1]} fichas`}
                                       else{alert("te quedaste sin fichas")}});
 
 
@@ -539,28 +539,28 @@ let boton2 = document.getElementById("btn2");
 boton2.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[2] = sumarFichas(1, numApostados[2])
                                         console.log(`Apostando ${numApostados[2]} al NUMERO 2`)
-                                        boton2.innerHTML = `2 <p class="FichasApostadas">${numApostados[2]} fichas`}
+                                        boton2.innerHTML = `2 <p class="FichasApostadas fichitas">${numApostados[2]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton3 = document.getElementById("btn3");
 boton3.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[3] = sumarFichas(1, numApostados[3])
                                         console.log(`Apostando ${numApostados[3]} al NUMERO 3`)
-                                        boton3.innerHTML = `3 <p class="FichasApostadas">${numApostados[3]} fichas`}
+                                        boton3.innerHTML = `3 <p class="FichasApostadas fichitas">${numApostados[3]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton4 = document.getElementById("btn4");
 boton4.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[4] = sumarFichas(1, numApostados[4])
                                         console.log(`Apostando ${numApostados[4]} al NUMERO 4`)
-                                        boton4.innerHTML = `4 <p class="FichasApostadas">${numApostados[4]} fichas`}
+                                        boton4.innerHTML = `4 <p class="FichasApostadas fichitas">${numApostados[4]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton5 = document.getElementById("btn5");
 boton5.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[5] = sumarFichas(1, numApostados[5])
                                         console.log(`Apostando ${numApostados[5]} al NUMERO 5`)
-                                        boton5.innerHTML = `5 <p class="FichasApostadas">${numApostados[5]} fichas`}
+                                        boton5.innerHTML = `5 <p class="FichasApostadas fichitas">${numApostados[5]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
                         
@@ -569,210 +569,210 @@ let boton6 = document.getElementById("btn6");
 boton6.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[6] = sumarFichas(1, numApostados[6])
                                         console.log(`Apostando ${numApostados[6]} al NUMERO 6`)
-                                        boton6.innerHTML = `6 <p class="FichasApostadas">${numApostados[6]} fichas`}
+                                        boton6.innerHTML = `6 <p class="FichasApostadas fichitas">${numApostados[6]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton7 = document.getElementById("btn7");
 boton7.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[7] = sumarFichas(1, numApostados[7])
                                         console.log(`Apostando ${numApostados[7]} al NUMERO 7`)
-                                        boton7.innerHTML = `7 <p class="FichasApostadas">${numApostados[7]} fichas`}
+                                        boton7.innerHTML = `7 <p class="FichasApostadas fichitas">${numApostados[7]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton8 = document.getElementById("btn8");
 boton8.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[8] = sumarFichas(1, numApostados[8])
                                         console.log(`Apostando ${numApostados[8]} al NUMERO 8`)
-                                        boton8.innerHTML = `8 <p class="FichasApostadas">${numApostados[8]} fichas`}
+                                        boton8.innerHTML = `8 <p class="FichasApostadas fichitas">${numApostados[8]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton9 = document.getElementById("btn9");
 boton9.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[9] = sumarFichas(1, numApostados[9])
                                         console.log(`Apostando ${numApostados[9]} al NUMERO 9`)
-                                        boton9.innerHTML = `9 <p class="FichasApostadas">${numApostados[9]} fichas`}
+                                        boton9.innerHTML = `9 <p class="FichasApostadas fichitas">${numApostados[9]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton10 = document.getElementById("btn10");
 boton10.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[10] = sumarFichas(1, numApostados[10])
                                         console.log(`Apostando ${numApostados[10]} al NUMERO 10`)
-                                        boton10.innerHTML = `10 <p class="FichasApostadas">${numApostados[10]} fichas`}
+                                        boton10.innerHTML = `10 <p class="FichasApostadas fichitas">${numApostados[10]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton11 = document.getElementById("btn11");
 boton11.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[11] = sumarFichas(1, numApostados[11])
                                         console.log(`Apostando ${numApostados[11]} al NUMERO 11`)
-                                        boton11.innerHTML = `11 <p class="FichasApostadas">${numApostados[11]} fichas`}
+                                        boton11.innerHTML = `11 <p class="FichasApostadas fichitas">${numApostados[11]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton12 = document.getElementById("btn12");
 boton12.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[12] = sumarFichas(1, numApostados[12])
                                         console.log(`Apostando ${numApostados[12]} al NUMERO 12`)
-                                        boton12.innerHTML = `12 <p class="FichasApostadas">${numApostados[12]} fichas`}
+                                        boton12.innerHTML = `12 <p class="FichasApostadas fichitas">${numApostados[12]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton13 = document.getElementById("btn13");
 boton13.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[13] = sumarFichas(1, numApostados[13])
                                         console.log(`Apostando ${numApostados[13]} al NUMERO 13`)
-                                        boton13.innerHTML = `13 <p class="FichasApostadas">${numApostados[13]} fichas`}
+                                        boton13.innerHTML = `13 <p class="FichasApostadas fichitas">${numApostados[13]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton14 = document.getElementById("btn14");
 boton14.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[14] = sumarFichas(1, numApostados[14])
                                         console.log(`Apostando ${numApostados[14]} al NUMERO 14`)
-                                        boton14.innerHTML = `14 <p class="FichasApostadas">${numApostados[14]} fichas`}
+                                        boton14.innerHTML = `14 <p class="FichasApostadas fichitas">${numApostados[14]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton15 = document.getElementById("btn15");
 boton15.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[15] = sumarFichas(1, numApostados[15])
                                         console.log(`Apostando ${numApostados[15]} al NUMERO 15`)
-                                        boton15.innerHTML = `15 <p class="FichasApostadas">${numApostados[15]} fichas`}
+                                        boton15.innerHTML = `15 <p class="FichasApostadas fichitas">${numApostados[15]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton16 = document.getElementById("btn16");
 boton16.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[16] = sumarFichas(1, numApostados[16])
                                         console.log(`Apostando ${numApostados[16]} al NUMERO 16`)
-                                        boton16.innerHTML = `16 <p class="FichasApostadas">${numApostados[16]} fichas`}
+                                        boton16.innerHTML = `16 <p class="FichasApostadas fichitas">${numApostados[16]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton17 = document.getElementById("btn17");
 boton17.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[17] = sumarFichas(1, numApostados[17])
                                         console.log(`Apostando ${numApostados[17]} al NUMERO 17`)
-                                        boton17.innerHTML = `17 <p class="FichasApostadas">${numApostados[17]} fichas`}
+                                        boton17.innerHTML = `17 <p class="FichasApostadas fichitas">${numApostados[17]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton18 = document.getElementById("btn18");
 boton18.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[18] = sumarFichas(1, numApostados[18])
                                         console.log(`Apostando ${numApostados[18]} al NUMERO 18`)
-                                        boton18.innerHTML = `18 <p class="FichasApostadas">${numApostados[18]} fichas`}
+                                        boton18.innerHTML = `18 <p class="FichasApostadas fichitas">${numApostados[18]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton19 = document.getElementById("btn19");
 boton19.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[19] = sumarFichas(1, numApostados[19])
                                         console.log(`Apostando ${numApostados[19]} al NUMERO 19`)
-                                        boton19.innerHTML = `19 <p class="FichasApostadas">${numApostados[19]} fichas`}
+                                        boton19.innerHTML = `19 <p class="FichasApostadas fichitas">${numApostados[19]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton20 = document.getElementById("btn20");
 boton20.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[20] = sumarFichas(1, numApostados[20])
                                         console.log(`Apostando ${numApostados[20]} al NUMERO 20`)
-                                        boton20.innerHTML = `20 <p class="FichasApostadas">${numApostados[20]} fichas`}
+                                        boton20.innerHTML = `20 <p class="FichasApostadas fichitas">${numApostados[20]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton21 = document.getElementById("btn21");
 boton21.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[21] = sumarFichas(1, numApostados[21])
                                         console.log(`Apostando ${numApostados[21]} al NUMERO 21`)
-                                        boton21.innerHTML = `21 <p class="FichasApostadas">${numApostados[21]} fichas`}
+                                        boton21.innerHTML = `21 <p class="FichasApostadas fichitas">${numApostados[21]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton22 = document.getElementById("btn22");
 boton22.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[22] = sumarFichas(1, numApostados[22])
                                         console.log(`Apostando ${numApostados[22]} al NUMERO 22`)
-                                        boton22.innerHTML = `22 <p class="FichasApostadas">${numApostados[22]} fichas`}
+                                        boton22.innerHTML = `22 <p class="FichasApostadas fichitas">${numApostados[22]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton23 = document.getElementById("btn23");
 boton23.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[23] = sumarFichas(1, numApostados[23])
                                         console.log(`Apostando ${numApostados[23]} al NUMERO 23`)
-                                        boton23.innerHTML = `23 <p class="FichasApostadas">${numApostados[23]} fichas`}
+                                        boton23.innerHTML = `23 <p class="FichasApostadas fichitas">${numApostados[23]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton24 = document.getElementById("btn24");
 boton24.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[24] = sumarFichas(1, numApostados[24])
                                         console.log(`Apostando ${numApostados[24]} al NUMERO 24`)
-                                        boton24.innerHTML = `24 <p class="FichasApostadas">${numApostados[24]} fichas`}
+                                        boton24.innerHTML = `24 <p class="FichasApostadas fichitas">${numApostados[24]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton25 = document.getElementById("btn25");
 boton25.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[25] = sumarFichas(1, numApostados[25])
                                         console.log(`Apostando ${numApostados[25]} al NUMERO 25`)
-                                        boton25.innerHTML = `25 <p class="FichasApostadas">${numApostados[25]} fichas`}
+                                        boton25.innerHTML = `25 <p class="FichasApostadas fichitas">${numApostados[25]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton26 = document.getElementById("btn26");
 boton26.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[26] = sumarFichas(1, numApostados[26])
                                         console.log(`Apostando ${numApostados[26]} al NUMERO 26`)
-                                        boton26.innerHTML = `26 <p class="FichasApostadas">${numApostados[26]} fichas`}
+                                        boton26.innerHTML = `26 <p class="FichasApostadas fichitas">${numApostados[26]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton27 = document.getElementById("btn27");
 boton27.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[27] = sumarFichas(1, numApostados[27])
                                         console.log(`Apostando ${numApostados[27]} al NUMERO 27`)
-                                        boton27.innerHTML = `27 <p class="FichasApostadas">${numApostados[27]} fichas`}
+                                        boton27.innerHTML = `27 <p class="FichasApostadas fichitas">${numApostados[27]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton28 = document.getElementById("btn28");
 boton28.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[28] = sumarFichas(1, numApostados[28])
                                         console.log(`Apostando ${numApostados[28]} al NUMERO 28`)
-                                        boton28.innerHTML = `28 <p class="FichasApostadas">${numApostados[28]} fichas`}
+                                        boton28.innerHTML = `28 <p class="FichasApostadas fichitas">${numApostados[28]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton29 = document.getElementById("btn29");
 boton29.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[29] = sumarFichas(1, numApostados[29])
                                         console.log(`Apostando ${numApostados[29]} al NUMERO 29`)
-                                        boton29.innerHTML = `29 <p class="FichasApostadas">${numApostados[29]} fichas`}
+                                        boton29.innerHTML = `29 <p class="FichasApostadas fichitas">${numApostados[29]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton30 = document.getElementById("btn30");
 boton30.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[30] = sumarFichas(1, numApostados[30])
                                         console.log(`Apostando ${numApostados[30]} al NUMERO 30`)
-                                        boton30.innerHTML = `30 <p class="FichasApostadas">${numApostados[30]} fichas`}
+                                        boton30.innerHTML = `30 <p class="FichasApostadas fichitas">${numApostados[30]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton31 = document.getElementById("btn31");
 boton31.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[31] = sumarFichas(1, numApostados[31])
                                         console.log(`Apostando ${numApostados[31]} al NUMERO 31`)
-                                        boton31.innerHTML = `31 <p class="FichasApostadas">${numApostados[31]} fichas`}
+                                        boton31.innerHTML = `31 <p class="FichasApostadas fichitas">${numApostados[31]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton32 = document.getElementById("btn32");
 boton32.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[32] = sumarFichas(1, numApostados[32])
                                         console.log(`Apostando ${numApostados[32]} al NUMERO 32`)
-                                        boton32.innerHTML = `32 <p class="FichasApostadas">${numApostados[32]} fichas`}
+                                        boton32.innerHTML = `32 <p class="FichasApostadas fichitas">${numApostados[32]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton33 = document.getElementById("btn33");
 boton33.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[33] = sumarFichas(1, numApostados[33])
                                         console.log(`Apostando ${numApostados[33]} al NUMERO 33`)
-                                        boton33.innerHTML = `33 <p class="FichasApostadas">${numApostados[33]} fichas`}
+                                        boton33.innerHTML = `33 <p class="FichasApostadas fichitas">${numApostados[33]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton34 = document.getElementById("btn34");
 boton34.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[34] = sumarFichas(1, numApostados[34])
                                         console.log(`Apostando ${numApostados[34]} al NUMERO 34`)
-                                        boton34.innerHTML = `34 <p class="FichasApostadas">${numApostados[34]} fichas`}
+                                        boton34.innerHTML = `34 <p class="FichasApostadas fichitas">${numApostados[34]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton35 = document.getElementById("btn35");
 boton35.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[35] = sumarFichas(1, numApostados[35])
                                         console.log(`Apostando ${numApostados[35]} al NUMERO 35`)
-                                        boton35.innerHTML = `35 <p class="FichasApostadas">${numApostados[35]} fichas`}
+                                        boton35.innerHTML = `35 <p class="FichasApostadas fichitas">${numApostados[35]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton36 = document.getElementById("btn36");
@@ -780,7 +780,7 @@ boton36.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                         numApostados[36] = sumarFichas(1, numApostados[36])
                                         console.log(`Apostando ${numApostados[36]} al NUMERO 36`)
                                                                        
-                                        boton36.innerHTML = `36 <p class="FichasApostadas">${numApostados[36]} fichas`}
+                                        boton36.innerHTML = `36 <p class="FichasApostadas fichitas">${numApostados[36]} fichas`}
                                         else{alert("te quedaste sin fichas")}});
 
 let boton0 = document.getElementById("btn0");
@@ -788,7 +788,7 @@ boton0.addEventListener("click", ()=>{if (fichasDisponibles>=1){
                                        numApostados[0] = sumarFichas(1, numApostados[0])
                                        console.log(`Apostando ${numApostados[0]} al NUMERO 0`)
 
-                                       boton0.innerHTML = `0 <p class="FichasApostadas">${numApostados[0]} fichas`}
+                                       boton0.innerHTML = `0 <p class="FichasApostadas fichitas">${numApostados[0]} fichas`}
                                         
                                        else{alert("te quedaste sin fichas")}});
 

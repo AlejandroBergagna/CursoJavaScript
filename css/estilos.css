@@ -8,7 +8,7 @@ header{
 }
 
 body{
-    background-color: red;
+    background-color: green;
 }
 
 .contenedor{
@@ -25,8 +25,7 @@ body{
 .ruleta{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(13, 1fr);
-    
+    grid-template-rows: repeat(13, 1fr);    
 
 }
 
@@ -38,8 +37,28 @@ button{
     padding: 1rem;
     background-color: green;
     border-width: thin;
-    border-color: yellow;
+    border-color: white;
+    color: white;
+    
+    /*border-radius: 2rem;*/
 }
+
+.fichitas{
+    font-size: xx-small;
+}
+
+.botonColorRojo{
+    background-color: red;
+}
+
+.botonColorNegro{
+    background-color: black;
+
+}
+
+/*.colorFichas{
+    color: blue;
+}*/
 
 .but__cero{
     grid-column: 3 / 6;
