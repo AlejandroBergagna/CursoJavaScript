@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- CSS propio-->
     <link rel="stylesheet" href="./css/estilos.css">
     <title>Document</title>
 </head>
@@ -15,15 +19,15 @@
 
     </header>
 
-    <main class="contenedor">
-        <section>
+    <main class="contenedor container-fluid">
+        <section class="secJugador">
 
             <div id="jugadorActual">
             </div>
 
         </section>
         <section class="ruleta">
-            <button id="btn0" class="but__cero btnNumero">0</button>
+            <button id="btn0" class="but__cero btnNumero">0<br><div>*</div></button>
             <button id="btnPar" class="but__par"><p>PAR</p></button>
             <button id="btnRojo" class="but__rojo"><img src="./img/romborojo.png" alt=""></button>
             <button id="btnNegro" class="but__negro"><img src="./img/rombonegro.png" alt=""></button>
@@ -68,7 +72,12 @@
             <button id="btn35" class="btnNumero botonColorNegro">35</button>
             <button id="btn36" class="btnNumero botonColorRojo">36</button>
         </section>
-        <section>
+        <section class="tiroRuleta">
+            <img src="./img/ficha1-removebg-preview.png" alt="">
+            <img src="./img/ficha3-removebg-preview.png" alt="">
+            <img src="./img/ficha5-removebg-preview.png" alt="">
+            <img src="./img/ficha7-removebg-preview.png" alt="">
+            <img src="./img/ficha8-removebg-preview.png" alt="">
             <button id="btnApostar">APOSTAR</button>
             <button id="btnSalir">GUARDAR Y SALIR</button>
             <div id="tiroActual">

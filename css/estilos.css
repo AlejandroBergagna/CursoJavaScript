@@ -17,6 +17,19 @@ body{
     justify-content: space-around;
 }
 
+.secJugador{
+    margin: 0rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.secTiroRuleta{
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .colorApostado{
     display: flex;
     flex-direction: column;
@@ -34,7 +47,8 @@ img{
 }
 
 button{
-    padding: 1rem;
+    padding: 0.5rem;
+    font-size: small;
     background-color: green;
     border-width: thin;
     border-color: white;
@@ -46,6 +60,10 @@ button{
 .fichitas{
     font-size: xx-small;
 }
+
+/*.tamaFicha{
+    width: 1rem;
+}*/
 
 .botonColorRojo{
     background-color: red;
@@ -101,4 +119,14 @@ button{
     grid-column: 2 / 3;
     grid-row: 10 / 14;
     
+}
+
+/* CLASES PRUEBA TERNARIO */
+
+.pocasFichas{
+    color : yellow;
+}
+
+.muchasFichas{
+    color : black;
 }
