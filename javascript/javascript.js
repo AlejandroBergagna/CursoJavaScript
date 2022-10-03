@@ -179,16 +179,40 @@ jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
 fichasDisponibles == 0 && (fichasDisponibles = 100);
 
 
+let numeroRuleta = document.getElementById("tiroActual");
+
+let fichasGanadas = document.getElementById("fichasGanadas");
+
+
 // FUNCIÓN INVOCADA POR EL BOTÓN APOSTAR
 
 function crearApuesta(){
 
+    fichasGanadas.innerText = "";
+    numeroRuleta.innerText = "";
+    
+    // APARECE LA RULETA
+
+    let gifRuleta = document.getElementById("gifRuleta");
+    gifRuleta.classList.remove("gif");
+
+    // SACO LA RULETA
+
+    setTimeout(()=>{
+        gifRuleta.classList.add("gif");
+      
+    },5000)
+
     // BORRO EL TEXTO DE LOS BOTONES QUE INDICA LA CANTIDAD DE FICHAS APOSTADAS
 
-    let borrarFichasApostadas = document.getElementsByClassName("FichasApostadas");
-    for(let borrar of borrarFichasApostadas){
-        borrar.innerHTML = `<div></div>`;
-    }
+    setTimeout(()=>{
+        let borrarFichasApostadas = document.getElementsByClassName("FichasApostadas");
+        for(let borrar of borrarFichasApostadas){
+            borrar.innerHTML = `<div></div>`;
+        }
+      
+    },8000)
+
     
     // CREO UN OBJETO CON LA PRIMER APUESTA
     apuesta = new Apuesta (numApostados, apuestaRojo, apuestaNegro, apuestaPar, apuestaImpar, apuestaPDoc, apuestaSDoc, apuestaTDoc);
@@ -212,24 +236,41 @@ function crearApuesta(){
     
     let {numero, color, paridad, docena} = tiroRuleta;
     
-    let numeroRuleta = document.getElementById("tiroActual");
+//    let numeroRuleta = document.getElementById("tiroActual");
     
-    numeroRuleta.innerText = `Salió el número: ${numero}
-                              Su color es: ${color}
-                              Es: ${paridad}
-                              Pertenece a la ${docena} docena`
+    
 
-    
-    // numeroRuleta.innerText = `Salió el número: ${tiroRuleta.numero}
-    //                           Su color es: ${tiroRuleta.color}
-    //                           Es: ${tiroRuleta.paridad}
-    //                           Pertenece a la ${tiroRuleta.docena} docena`
+// MUESTRO EL NÚMERO QUE SALIÓ CON UN SWEETALERT
 
-                                  
-    
-    
-    
-    
+    setTimeout(()=>{
+  
+        let timerInterval
+        Swal.fire({
+          
+          
+          title: 'Salió el Número:' + tiroRuleta.numero,
+          html: '',
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer')
+          }
+        })
+  
+    },5000
+    )
     
     // LLAMO A LA FUNCIÓN QUE ME DEVUELVE CUÁNTAS FICHAS GANÓ POR ACERTAR EL NÚMERO
     
@@ -263,13 +304,35 @@ function crearApuesta(){
         console.log(`Ganaste ${gananciaDocena} fichas por haber apostado ${gananciaDocena / 3} fichas al ${tiroRuleta.docena}`);          
     }
 
- 
-    let fichasGanadas = document.getElementById("fichasGanadas");
-    fichasGanadas.innerText = `Ganaste ${gananciaNumero} fichas por haber apostado ${numApostados[tiroRuleta.numero]} fichas al ${tiroRuleta.numero}
-                               Ganaste ${gananciaColor} fichas por haber apostado ${gananciaColor / 2} fichas al ${tiroRuleta.color}
-                               Ganaste ${gananciaParidad} fichas por haber apostado ${gananciaParidad / 2} fichas al ${tiroRuleta.paridad}
-                               Ganaste ${gananciaDocena} fichas por haber apostado ${gananciaDocena / 3} fichas al ${tiroRuleta.docena} docena`
- 
+    // MUESTRO LO QUE GANÓ SEGUN SU APUESTA
+    
+    
+    setTimeout(()=>{    
+        Swal.fire({
+            html: 'Ganaste: ' + gananciaNumero + ' fichas por haber apostado ' + numApostados[tiroRuleta.numero] + ' fichas al ' + tiroRuleta.numero +
+            '<br>'+'Ganaste: ' + gananciaColor + ' fichas por haber apostado ' + (gananciaColor / 2) + ' fichas al ' + tiroRuleta.color +
+            '<br>'+'Ganaste: ' + gananciaParidad + ' fichas por haber apostado ' + (gananciaParidad / 2) + ' fichas al ' + tiroRuleta.paridad +
+            '<br>'+'Ganaste: ' + gananciaDocena + ' fichas por haber apostado ' + (gananciaDocena / 3) + ' fichas al ' + tiroRuleta.docena + 'docena',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          });
+
+        fichasDisponibles = fichasDisponibles + totalFichasGanadas;
+        console.log(`Te quedan ${fichasDisponibles} Fichas Disponibles`);
+                           
+                            
+        jugadorActual.innerText = `Jugador: ${nombreJugador}
+                                   Fichas Disponibles: ${fichasDisponibles}`
+                           
+                               
+
+        inicializarVariablesApuesta();                        }
+
+    ,7000)
 
     
     totalFichasGanadas = gananciaNumero + gananciaColor + gananciaParidad + gananciaDocena;
@@ -277,27 +340,8 @@ function crearApuesta(){
     
     totalFichasApuesta = totalFichasApostadas();
     console.log(`Apostaste un total de ${totalFichasApuesta} Fichas`);
-
-    
-    
-    fichasDisponibles = fichasDisponibles + totalFichasGanadas;
-    console.log(`Te quedan ${fichasDisponibles} Fichas Disponibles`);
-
- 
-    jugadorActual.innerText = `Jugador: ${nombreJugador}
-                              Fichas Disponibles: ${fichasDisponibles}`
         
     
-    // GUARDO LAS FICHAS DISPONIBLES EN EL STORAGE
-    
-    
- //   localStorage.setItem("Fichas", fichasDisponibles);
-
-
-    inicializarVariablesApuesta();
-
-
-
 }
 
 // FUNCION QUE LE SUMA LA CANTIDAD DE FICHAS A CADA OPCION ELEGIDA POR EL JUGADOR
@@ -498,241 +542,32 @@ let botonPar = document.getElementById("btnPar");
 botonPar.addEventListener("click", ()=>{apuestaPar = probandoChances(apuestaPar,fichitaPar,botonPar, "par")});
 
 
-// let botonPar = document.getElementById("btnPar");
-// botonPar.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                         apuestaPar = sumarFichas(5, apuestaPar);
-                                        
-//                                         console.log(`Apostando ${apuestaPar} a PAR`);
-                                        
-//                                         fichitaPar.innerHTML = `<p class="FichasApostadas fichitas">${apuestaPar} fichas</p>`;
-//                                         botonPar.append(fichitaPar)
-                                        
-//                                         jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                         Fichas Disponibles: ${fichasDisponibles}`}
-                                        
-//                                         else{alert("te quedaste sin fichas")}});
 
 let botonImpar = document.getElementById("btnImpar");
 botonImpar.addEventListener("click", ()=>{apuestaImpar = probandoChances(apuestaImpar,fichitaImpar,botonImpar, "impar")});
 
 
-// botonImpar.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                           apuestaImpar = sumarFichas(5, apuestaImpar);
-                                          
-//                                           console.log(`Apostando ${apuestaImpar} a IMPAR`);
-                                          
-//                                           fichitaImpar.innerHTML = `<p class="FichasApostadas fichitas">${apuestaImpar} fichas</p>`;
-//                                           botonImpar.append(fichitaImpar)
-                                          
-//                                           jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                           Fichas Disponibles: ${fichasDisponibles}`}
-                                          
-//                                           else{alert("te quedaste sin fichas")}});
 
 let botonRojo = document.getElementById("btnRojo");
 botonRojo.addEventListener("click", ()=>{apuestaRojo = probandoChances(apuestaRojo,fichitaRojo,botonRojo,"rojo")});
 
-// botonRojo.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                          apuestaRojo = sumarFichas(5, apuestaRojo)
-                                         
-//                                          console.log(`Apostando ${apuestaRojo} a ROJO`)
-                                         
-//                                          fichitaRojo.innerHTML = `<p class="FichasApostadas fichitas">${apuestaRojo} fichas</p>`;
-//                                          botonRojo.append(fichitaRojo)
-                                         
-//                                          jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                          Fichas Disponibles: ${fichasDisponibles}`}
-                                         
-//                                          else{alert("te quedaste sin fichas")}});
 
 let botonNegro = document.getElementById("btnNegro");
 botonNegro.addEventListener("click", ()=>{apuestaNegro = probandoChances(apuestaNegro,fichitaNegro,botonNegro,"negro")});
 
-
-// botonNegro.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                           apuestaNegro = sumarFichas(5, apuestaNegro)
-                                          
-//                                           console.log(`Apostando ${apuestaNegro} a NEGRO`)
-                                          
-//                                           fichitaNegro.innerHTML = `<p class="FichasApostadas fichitas">${apuestaNegro} fichas</p>`;
-//                                           botonNegro.append(fichitaNegro)                              
-                                          
-//                                           jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                           Fichas Disponibles: ${fichasDisponibles}`}
-                                          
-//                                           else{alert("te quedaste sin fichas")}});
-
 let botonPrimeraDocena = document.getElementById("btnPDoc");
 botonPrimeraDocena.addEventListener("click", ()=>{apuestaPDoc = probandoChances(apuestaPDoc,fichitaPDoc,botonPrimeraDocena,"1° docena")});
 
-// botonPrimeraDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                                   apuestaPDoc = sumarFichas(5, apuestaPDoc)
-                                                  
-//                                                   console.log(`Apostando ${apuestaPDoc} a PRIMERA DOCENA`)
-
-//                                                   fichitaPDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaPDoc} fichas</p>`;
-//                                                   botonPrimeraDocena.append(fichitaPDoc)                              
-
-//                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                                   Fichas Disponibles: ${fichasDisponibles}`}
-                                                                  
-//                                                   else{alert("te quedaste sin fichas")}});
 
 let botonSegundaDocena = document.getElementById("btnSDoc");
 botonSegundaDocena.addEventListener("click", ()=>{apuestaSDoc = probandoChances(apuestaSDoc,fichitaSDoc,botonSegundaDocena,"2° docena")});
 
 
-// botonSegundaDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                                   apuestaSDoc = sumarFichas(5, apuestaSDoc)
-                                                  
-//                                                   console.log(`Apostando ${apuestaSDoc} a SEGUNDA DOCENA`)
-
-//                                                   fichitaSDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaSDoc} fichas</p>`;
-//                                                   botonSegundaDocena.append(fichitaSDoc)                              
-
-//                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                                   Fichas Disponibles: ${fichasDisponibles}`}
-                                                  
-//                                                   else{alert("te quedaste sin fichas")}});
 
 let botonTerceraDocena = document.getElementById("btnTDoc");
 botonTerceraDocena.addEventListener("click", ()=>{apuestaTDoc = probandoChances(apuestaTDoc,fichitaTDoc,botonTerceraDocena,"3° docena")});
 
 
-// botonTerceraDocena.addEventListener("click", ()=>{if(fichasDisponibles>=5){
-//                                                   apuestaTDoc = sumarFichas(5, apuestaTDoc)
-
-//                                                   console.log(`Apostando ${apuestaTDoc} a TERCERA DOCENA`)
-
-//                                                   fichitaTDoc.innerHTML = `<p class="FichasApostadas fichitas">${apuestaTDoc} fichas</p>`;
-//                                                   botonTerceraDocena.append(fichitaTDoc)                              
-
-//                                                   jugadorActual.innerText = `Jugador: ${nombreJugador}
-//                                                   Fichas Disponibles: ${fichasDisponibles}`}
-
-//                                                   else{alert("te quedaste sin fichas")}});
-
-// let boton1 = document.getElementById("btn1");
-// boton1.addEventListener("click", ()=>{probando(boton1, 1)});
-
-// let boton2 = document.getElementById("btn2");
-// boton2.addEventListener("click", ()=>{probando(boton2, 2)});
-
-// let boton3 = document.getElementById("btn3");
-// boton3.addEventListener("click", ()=>{probando(boton3, 3)});
-
-// let boton4 = document.getElementById("btn4");
-// boton4.addEventListener("click", ()=>{probando(boton4, 4)});
-
-// let boton5 = document.getElementById("btn5");
-// boton5.addEventListener("click", ()=>{probando(boton5, 5)});                   
-
-// let boton6 = document.getElementById("btn6");
-// boton6.addEventListener("click", ()=>{probando(boton6, 6)});
-
-// let boton7 = document.getElementById("btn7");
-// boton7.addEventListener("click", ()=>{probando(boton7, 7)});
-
-// let boton8 = document.getElementById("btn8");
-// boton8.addEventListener("click", ()=>{probando(boton8, 8)});
-
-// let boton9 = document.getElementById("btn9");
-// boton9.addEventListener("click", ()=>{probando(boton9, 9)});
-
-// let boton10 = document.getElementById("btn10");
-// boton10.addEventListener("click", ()=>{probando(boton10, 10)});
-
-// let boton11 = document.getElementById("btn11");
-// boton11.addEventListener("click", ()=>{probando(boton11, 11)});
-
-// let boton12 = document.getElementById("btn12");
-// boton12.addEventListener("click", ()=>{probando(boton12, 12)});
-
-// let boton13 = document.getElementById("btn13");
-// boton13.addEventListener("click", ()=>{probando(boton13, 13)});
-
-// let boton14 = document.getElementById("btn14");
-// boton14.addEventListener("click", ()=>{probando(boton14, 14)});
-
-// let boton15 = document.getElementById("btn15");
-// boton15.addEventListener("click", ()=>{probando(boton15, 15)});
-
-// let boton16 = document.getElementById("btn16");
-// boton16.addEventListener("click", ()=>{probando(boton16, 16)});
-
-// let boton17 = document.getElementById("btn17");
-// boton17.addEventListener("click", ()=>{probando(boton17, 17)});
-
-// let boton18 = document.getElementById("btn18");
-// boton18.addEventListener("click", ()=>{probando(boton18, 18)});
-
-// let boton19 = document.getElementById("btn19");
-// boton19.addEventListener("click", ()=>{probando(boton19, 19)});
-
-// let boton20 = document.getElementById("btn20");
-// boton20.addEventListener("click", ()=>{probando(boton20, 20)});
-
-// let boton21 = document.getElementById("btn21");
-// boton21.addEventListener("click", ()=>{probando(boton21, 21)});
-
-// let boton22 = document.getElementById("btn22");
-// boton22.addEventListener("click", ()=>{probando(boton22, 22)});
-
-// let boton23 = document.getElementById("btn23");
-// boton23.addEventListener("click", ()=>{probando(boton23, 23)});
-
-// let boton24 = document.getElementById("btn24");
-// boton24.addEventListener("click", ()=>{probando(boton24, 24)});
-
-// let boton25 = document.getElementById("btn25");
-// boton25.addEventListener("click", ()=>{probando(boton25, 25)});
-
-// let boton26 = document.getElementById("btn26");
-// boton26.addEventListener("click", ()=>{probando(boton26, 26)});
-
-// let boton27 = document.getElementById("btn27");
-// boton27.addEventListener("click", ()=>{probando(boton27, 27)});
-
-// let boton28 = document.getElementById("btn28");
-// boton28.addEventListener("click", ()=>{probando(boton28, 28)});
-
-// let boton29 = document.getElementById("btn29");
-// boton29.addEventListener("click", ()=>{probando(boton29, 29)});
-
-// let boton30 = document.getElementById("btn30");
-// boton30.addEventListener("click", ()=>{probando(boton30, 30)});
-
-// let boton31 = document.getElementById("btn31");
-// boton31.addEventListener("click", ()=>{probando(boton31, 31)});
-
-// let boton32 = document.getElementById("btn32");
-// boton32.addEventListener("click", ()=>{probando(boton32, 32)});
-
-// let boton33 = document.getElementById("btn33");
-// boton33.addEventListener("click", ()=>{probando(boton33, 33)});
-
-// let boton34 = document.getElementById("btn34");
-// boton34.addEventListener("click", ()=>{probando(boton34, 34)});
-
-// let boton35 = document.getElementById("btn35");
-// boton35.addEventListener("click", ()=>{probando(boton35, 35)});
-
-// let boton36 = document.getElementById("btn36");
-// boton36.addEventListener("click", ()=>{probando(boton36, 36)});
-
-// let cero = document.getElementById("cero");
-
-// let boton0 = document.getElementById("btn0");
-// boton0.addEventListener("click", ()=>{probando(boton0, 0)});
-
-// let cero = document.getElementById("cero");
-// let boton0 = document.getElementById("btn0");
-// boton0.addEventListener("click", ()=>{if (fichasDisponibles>=1){
-//                                        numApostados[0] = sumarFichas(1, numApostados[0])
-//                                        console.log(`Apostando ${numApostados[0]} al NUMERO 0`)
-                                       
-//                                        boton0.innerHTML = `0 <div class="FichasApostadas fichitas">${numApostados[0]} fichas`}
-//                                        else{alert("te quedaste sin fichas")}});
 
 
 let botonApostar = document.getElementById("btnApostar");
@@ -788,6 +623,7 @@ function probandoChances(x,y,z,chance){
     }
 
 // VOY RESTANDO Y MOSTRANDO AL JUGADOR SUS FICHAS DISPONIBLES
+// CAPTURO TODOS LOS BOTONES DE NUMEROS POR CLASE
 
 let botonNumero = document.getElementsByClassName("btnNumero");
 let boton;
@@ -798,8 +634,6 @@ for (let fichitas of botonNumero){
         probando(boton, fichitas.value);
         jugadorActual.innerText = `Jugador: ${nombreJugador}
         Fichas Disponibles: ${fichasDisponibles}`
-        // console.log(`existe ${botonNumero.item}`)
-        // console.log(` que onda con ${pucha}`);
 
     })
 
@@ -818,7 +652,6 @@ function salir(){
         jugadores[subJug].fichas = fichasDisponibles;
     }
 
-    //console.log(jugadores);
 
     localStorage.setItem("jugadores", JSON.stringify(jugadores));
 

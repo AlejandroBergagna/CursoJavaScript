@@ -11,6 +11,14 @@ body{
     background-color: green;
 }
 
+.gif{
+    display: none;
+}
+
+.gifTama{
+    width: 400px;
+}
+
 .contenedor{
     display: flex;
     flex-direction: row;
