@@ -1,3 +1,12 @@
+import { getPromos, getData } from "./api.js";
+
+// TRAIGO LAS PROMOS DEL JSON
+
+let promociones = await getData();
+
+
+
+//console.log(getPromos());
 
 // ARRAY DE OBJETOS DE LOS TIROS DE LA RULETA
 const tirosRuleta = [];
@@ -33,7 +42,7 @@ localStorage.setItem("jugadores", JSON.stringify(jugadores));
 let numApostados = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 // ARRAY DE LOS NÚMEROS NEGROS
-const numNegros = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,3,33,35];
+const numNegros = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35];
 
 // OBJETO APUESTA FORMADO POR ARRAY DE NUMEROS APOSTADOS, Y FICHAS APOSTADAS POR CHANCE
 let apuesta = {};
@@ -163,6 +172,9 @@ check ? (alert(`Bienvenido nuevamente ${nombreJugador}`)) : (alert(`Bienvenido p
 
 let jugadorActual = document.getElementById("jugadorActual");
 
+
+fichasDisponibles == 0 && (fichasDisponibles = 100);
+
 // JUGANDO UN POCO CON OPERADORES TERNARIOS EN LAS CLASES DE CSS
 
 jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
@@ -176,7 +188,6 @@ jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
 //     fichasDisponibles = 100;
 // }
 
-fichasDisponibles == 0 && (fichasDisponibles = 100);
 
 
 let numeroRuleta = document.getElementById("tiroActual");
@@ -222,7 +233,7 @@ function crearApuesta(){
 
     numeroAleatorio = generarNumeroAleatorio();
     
-   // numeroAleatorio = 32;
+    //numeroAleatorio = 3;
 
     capturarTiroRuleta();
 
@@ -356,6 +367,7 @@ function sumarFichas(n, opcion){
 
 function generarNumeroAleatorio(){
     let numAle = Math.floor(Math.random() * 36);
+    //let numAle = 0;
     return numAle;
 }
 
@@ -402,6 +414,7 @@ function capturarParidadNuemroAleatorio(){
 }
 
 // FUNCIÓN PARA CAPTURAR EL COLOR DEL NÚMERO ALEATORIO
+let col = "cero";
 
 function capturarColorAleatorio(){
     
@@ -457,7 +470,7 @@ function gananciasPorColor(){
         let ganaFichasColor = apuesta.negro * 2;
         return ganaFichasColor;
     }else{
-        ganaFichasColor = 0;
+        let ganaFichasColor = 0;
         return ganaFichasColor;
     }
 }
@@ -569,12 +582,66 @@ botonTerceraDocena.addEventListener("click", ()=>{apuestaTDoc = probandoChances(
 
 
 
+let botonComprarFichas = document.getElementById("btnComprarFichas");
+botonComprarFichas.addEventListener("click", loadPromos);
 
 let botonApostar = document.getElementById("btnApostar");
 botonApostar.addEventListener("click", crearApuesta);
 
 let botonSalir = document.getElementById("btnSalir");
 botonSalir.addEventListener("click", salir);
+
+
+// FUNCIÓN QUE TRAE LAS PROMOS DEL JSON Y LAS MUESTRA AL CLICKEAR EN COMPRAR FICHAS
+
+let contenedorPromos = document.getElementById("contenedorPromos");
+
+function loadPromos(){
+
+    promociones.forEach(p =>{
+        let card = document.createElement("div");
+        card.innerHTML = `  
+
+           <div class="card cardTama" style="width: 18rem;">
+                    <img class="imgPromo" src="${p.img}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${p.name}</h5>
+                      <p class="card-text">${p.desc}</p>
+                      <button class="btnPromo" id="${p.id}" value="${p.id}">Comprar</button>
+                    </div>
+                </div>
+        `
+        contenedorPromos.appendChild(card);
+    
+   //     console.log(p.name);
+    }
+
+    );
+
+    
+    // CAPTURO LOS BOTONES DE COMPRA DE PROMOCIONES
+
+    let botonPromo = document.getElementsByClassName("btnPromo");
+    let bot = 0;
+
+    for (let pr of botonPromo){
+        pr.addEventListener("click", ()=>{
+            fichasDisponibles=fichasDisponibles+(pr.value*1000);
+          //  console.log("que onda maestro " + pr.value + fichasDisponibles);
+            contenedorPromos.innerHTML = "";
+            jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
+            <p class="${fichasDisponibles <= 10 ? "pocasFichas" : "muchasFichas"}">Fichas Disponibles: ${fichasDisponibles}</p>`
+
+        })
+    
+    }
+
+    //<a href="#" class="btn btn-primary">Go somewhere</a>
+
+//console.log(promos);    
+}
+
+
 
 // FUNCIÓN QUE AGREGA FICHITAS EN LOS BOTONES DE LOS NUMEROS
 // recibe como parámetro x : boton clickeado, y : numero (subíndice del array de nros apostados)
