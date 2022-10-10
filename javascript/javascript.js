@@ -603,7 +603,7 @@ function loadPromos(){
         card.innerHTML = `  
 
            <div class="card cardTama" style="width: 18rem;">
-                    <img class="imgPromo" src="${p.img}" class="card-img-top" alt="...">
+                    <img class="imgPromo" src="${p.img}" class="card-img-top" alt="Imagen Fichas">
                     <div class="card-body">
                       <h5 class="card-title">${p.name}</h5>
                       <p class="card-text">${p.desc}</p>

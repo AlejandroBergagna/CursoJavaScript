@@ -32,7 +32,7 @@ export const getPromos = () => {
     return promos;
 }
 
-const API = 'javascript/promociones.json'
+const API = "./javascript/promociones.json"
 
 
 export const getData = async () =>{
