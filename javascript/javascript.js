@@ -1,12 +1,8 @@
-import { getPromos, getData } from "./api.js";
+import { getData } from "./api.js";
 
 // TRAIGO LAS PROMOS DEL JSON
 
 let promociones = await getData();
-
-
-
-//console.log(getPromos());
 
 // ARRAY DE OBJETOS DE LOS TIROS DE LA RULETA
 const tirosRuleta = [];
@@ -19,21 +15,9 @@ const apuestas = [];
 // ARRAY DE JUGADORES Y SUS FICHAS ACUMULADAS
 // REVISO SI EXISTE EL ARRAY EN EL LOCAL STORAGE Y LO TRAE
 
-//let jugadores = [];
-
-
 // OPERADOR LÓGICO OR PARA RECUPERAR JUGADORES DEL LOCAL STORAGE
 
 let jugadores = JSON.parse(localStorage.getItem("jugadores")) || [];
-
-// if(localStorage.getItem("jugadores")){
-//     //console.log("primera vez");
-//     jugadores = JSON.parse(localStorage.getItem("jugadores"));
-// }
-// else{
-//     //console.log("no es la primera vez");
-//     localStorage.setItem("jugadores", JSON.stringify(jugadores));
-// }
 
 localStorage.setItem("jugadores", JSON.stringify(jugadores));
 
@@ -124,22 +108,25 @@ let subJug = 0;
 
 let fichasDisponibles = 100;
 
-let nombreJugador = prompt("ingrese su nombre: ");
+
+const { value: ipAddress } = await Swal.fire({
+    title: 'Ingresá tu nombre',
+    input: 'text',
+    inputLabel: '',
+    inputValidator: (value) => {
+      if (!value) {
+        return 'You need to write something!'
+      }
+    }
+  })
+
+
+console.log("ingreso por sweetalert:" + ipAddress);
+
+let nombreJugador = ipAddress;
+
 
 // RECORRO EL ARRAY JUGADORES PARA RECUPERAR LAS FICHAS DISPONIBLES DEL JUGADOR EN CASO DE QUE EXISTA
-
-// for(let i=0; i<jugadores.length; i++){
-//     if (nombreJugador == jugadores[i].nombre){
-//         fichasDisponibles = jugadores[i].fichas;
-//         console.log(jugadores[i].nombre);
-//         console.log(jugadores[i].fichas);
-//         subJug = i;
-//         check = true;
-//     }
-//     else{
-//         //console.log("nuevo jugador");
-//     }
-// }
 
 
 for(let i=0; i<jugadores.length; i++){
@@ -155,39 +142,64 @@ for(let i=0; i<jugadores.length; i++){
     
 }
 
-console.log(check);
+// LE DOY LA BIENVENIDA AL JUGADOR CON UIN SWEETALERT
 
-// APLICO OPERADOR TERNARIO
-
-check ? (alert(`Bienvenido nuevamente ${nombreJugador}`)) : (alert(`Bienvenido por primera vez ${nombreJugador}`))
-
-// if (check){
-//     alert(`Bienvenido nuevamente ${nombreJugador}`);
-
-// }else{
-//     alert(`Bienvenido por primera vez ${nombreJugador}`);
-// }
-
+if (check){
+    let timerInterval
+    Swal.fire({
+      title: `Bienvenido nuevamente ${nombreJugador}`,
+      html: '',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft()
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
+}else{
+    let timerInterval
+    Swal.fire({
+      title: `Bienvenido por primera vez ${nombreJugador}`,
+      html: '',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft()
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
+}
 
 
 let jugadorActual = document.getElementById("jugadorActual");
 
 
-fichasDisponibles == 0 && (fichasDisponibles = 100);
-
 // JUGANDO UN POCO CON OPERADORES TERNARIOS EN LAS CLASES DE CSS
 
 jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
                            <p class="${fichasDisponibles <= 10 ? "pocasFichas" : "muchasFichas"}">Fichas Disponibles: ${fichasDisponibles}</p>`
-
-
-
-// SI EL JUGADOR POSEE 0 FICHAS, LE REINICIO EL VALOR EN 100 PARA QUE EMPIECE DE VUELTA
-
-// if (fichasDisponibles == 0){
-//     fichasDisponibles = 100;
-// }
-
 
 
 let numeroRuleta = document.getElementById("tiroActual");
@@ -240,16 +252,11 @@ function crearApuesta(){
     tiroRuleta = new Tiro(numeroAleatorio, colorAleatorio, paridadAleatorio, docenaAleatorio);
     tirosRuleta.push(tiroRuleta);
 
-    // MUESTRO EN EL HTML EL TIRO QUE SALIÓ EN LA RULETA
-
-    
     // DESESTRUCTURO EL OBJETO TIRO RULETA
     
     let {numero, color, paridad, docena} = tiroRuleta;
     
-//    let numeroRuleta = document.getElementById("tiroActual");
-    
-    
+ 
 
 // MUESTRO EL NÚMERO QUE SALIÓ CON UN SWEETALERT
 
@@ -316,7 +323,7 @@ function crearApuesta(){
     }
 
     // MUESTRO LO QUE GANÓ SEGUN SU APUESTA
-    
+   
     
     setTimeout(()=>{    
         Swal.fire({
@@ -367,7 +374,6 @@ function sumarFichas(n, opcion){
 
 function generarNumeroAleatorio(){
     let numAle = Math.floor(Math.random() * 36);
-    //let numAle = 0;
     return numAle;
 }
 
@@ -406,11 +412,6 @@ function capturarParidadNuemroAleatorio(){
 
     let bool = (numeroAleatorio % 2 == 0) ? true : false;
     return bool;
-    // if (numeroAleatorio % 2 == 0){
-    //     return true;
-    // }else{
-    //     return false;
-    // }
 }
 
 // FUNCIÓN PARA CAPTURAR EL COLOR DEL NÚMERO ALEATORIO
@@ -424,14 +425,6 @@ function capturarColorAleatorio(){
     bool ? col = "negro" : col = "rojo";
     
     return col;
-
-    // if (numNegros.includes(numeroAleatorio)){
-    //     let col = "negro";
-    //     return col;
-    // }else{
-    //     let col = "rojo";
-    //     return col;
-    // }
 }
 
 // FUNCIÓN PARA CAPTURAR A QUÉ DOCENA PERTENECE EL NÚMERO ALEATORIO
@@ -602,18 +595,16 @@ function loadPromos(){
         let card = document.createElement("div");
         card.innerHTML = `  
 
-           <div class="card cardTama" style="width: 18rem;">
+            <div class="card cardTama">
                     <img class="imgPromo" src="${p.img}" class="card-img-top" alt="Imagen Fichas">
                     <div class="card-body">
                       <h5 class="card-title">${p.name}</h5>
                       <p class="card-text">${p.desc}</p>
                       <button class="btnPromo" id="${p.id}" value="${p.id}">Comprar</button>
                     </div>
-                </div>
+            </div>
         `
         contenedorPromos.appendChild(card);
-    
-   //     console.log(p.name);
     }
 
     );
@@ -627,7 +618,6 @@ function loadPromos(){
     for (let pr of botonPromo){
         pr.addEventListener("click", ()=>{
             fichasDisponibles=fichasDisponibles+(pr.value*1000);
-          //  console.log("que onda maestro " + pr.value + fichasDisponibles);
             contenedorPromos.innerHTML = "";
             jugadorActual.innerHTML = `<p>Jugador: ${nombreJugador}</p>
             <p class="${fichasDisponibles <= 10 ? "pocasFichas" : "muchasFichas"}">Fichas Disponibles: ${fichasDisponibles}</p>`
@@ -636,9 +626,6 @@ function loadPromos(){
     
     }
 
-    //<a href="#" class="btn btn-primary">Go somewhere</a>
-
-//console.log(promos);    
 }
 
 

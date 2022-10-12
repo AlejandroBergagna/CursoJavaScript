@@ -59,9 +59,18 @@ img{
     width: 50px;
 }
 
+.contPromos{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100px;
+  
+}
+
 .cardTama{
-    margin: 2rem;
+    margin-top: 2rem;
     height: 150px;
+    width: max-content;
 }
 
 .imgPromo{
